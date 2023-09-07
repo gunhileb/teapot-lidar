@@ -10,7 +10,7 @@ from sbet.sbetRow import SbetRow
 
 class SbetParser:
 
-    def __init__(self, filename, random_noise, noise_from_frame_ix=0, crs_from=4258, crs_to=5972):
+    def __init__(self, filename, random_noise, noise_from_frame_ix=0, crs_from=4979, crs_to=5972):
 
         if filename.lower().endswith(".csv"):
             self.rows = SbetParser.read_csv(filename)
@@ -33,7 +33,7 @@ class SbetParser:
 
         self.crs_from = crs_from
         self.crs_to = crs_to
-        self.transformer = Transformer.from_crs(self.crs_from, self.crs_to)
+        self.transformer = Transformer.from_crs(self.crs_from, self.crs_to, always_xy=True)
 
     def reset(self):
         self.current_index = 0

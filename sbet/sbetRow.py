@@ -50,8 +50,11 @@ class SbetRow:
         return f'ix={self.index}' + (f', lat={self.lat}, lon={self.lon}, roll={self.roll}, pitch={self.pitch}, heading={self.heading}' if include_lat_lon else '') + f', alt={self.alt}, x={self.x}, y={self.y}, time={self.sow}, age={self.age}'
 
     def calculate_transformed(self, transformer, gps_epoch):
-
-        self.x, self.y, self.alt, _ = transformer.transform(self.lat, self.lon, self.alt_raw, gps_epoch)
+        if gps_epoch is None:
+            self.x, self.y = transformer.transform(self.lon, self.lat)
+            self.alt = self.alt_raw
+        else:
+            self.x, self.y, self.alt, _ = transformer.transform(self.lon, self.lat, self.alt_raw, gps_epoch)
 
         return self
 

@@ -27,6 +27,7 @@ class PcapReader:
         # Read the metadata from the JSON file.
         with open(meta_data_path, "r") as f:
             self.metadata = client.SensorInfo(f.read())
+        
         self.xyzLut = client.XYZLut(self.metadata)
 
         self.source = pcap.Pcap(pcap_path, self.metadata)
@@ -346,6 +347,7 @@ class PcapReader:
             if frame is None:
                 return frames
             frames.append(frame)
+
 
 if __name__ == "__main__":
 
